@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
-namespace HttpOptionStatus
+namespace HttpOptionStatus.Models
 {
     /// <summary>
     /// GameObjectにMonobehaviours（スクリプト）が追加されました。

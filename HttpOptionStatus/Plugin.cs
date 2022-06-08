@@ -1,12 +1,8 @@
-﻿using IPA;
+﻿using HttpOptionStatus.Installers;
+using IPA;
 using IPA.Config;
 using IPA.Config.Stores;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using UnityEngine;
-using UnityEngine.SceneManagement;
+using SiraUtil.Zenject;
 using IPALogger = IPA.Logging.Logger;
 
 namespace HttpOptionStatus
@@ -23,38 +19,26 @@ namespace HttpOptionStatus
         /// [Init]はコンストラクタのメソッド、InitWithConfig のような通常のメソッドの前に呼び出されます。
         /// [Init]は１つのコンストラクタのみを使用して下さい。
         /// </summary>
-        public void Init(IPALogger logger)
+        public void Init(IPALogger logger, Config conf, Zenjector zenjector)
         {
             Instance = this;
             Log = logger;
             Log.Info("HttpOptionStatus initialized.");
-        }
-
-        #region BSIPA Config
-        //BSIPAのコンフィグレーション機能を使用する場合は、コメントを外してください。
-        /*
-        [Init]
-        public void InitWithConfig(Config conf)
-        {
             Configuration.PluginConfig.Instance = conf.Generated<Configuration.PluginConfig>();
             Log.Debug("Config loaded");
+            zenjector.Install<HOSMenuInstaller>(Location.Menu);
         }
-        */
-        #endregion
 
         [OnStart]
         public void OnApplicationStart()
         {
             Log.Debug("OnApplicationStart");
-            new GameObject("HttpOptionStatusController").AddComponent<HttpOptionStatusController>();
-
         }
 
         [OnExit]
         public void OnApplicationQuit()
         {
             Log.Debug("OnApplicationQuit");
-
         }
     }
 }
